@@ -1,7 +1,19 @@
-* {
+
+/* General */
+:root {
+    --nunito: "Nunito Sans", Georgia, sans-serif;
+}
+
+*,
+*::after,
+*::before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: var(--nunito);
 }
 
 .wrapper {
@@ -20,10 +32,12 @@
     margin: 0 auto;
 }
 
+/* Title */
 #title {
     width: 1200px;
     text-align: center;
-    padding: 1rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
     margin: 0 auto;
 }
 
@@ -35,6 +49,7 @@
     font-size: 2rem;
 }
 
+/* Info */
 #info {
     display: flex;
     justify-content: space-between;
@@ -49,6 +64,7 @@
     font-size: 1.2rem;
 }
 
+/* Tictactoe layout */
 .grid-container {
     display: grid;
     gap: 1rem;
@@ -63,4 +79,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: calc((550px - 2rem)/3);
+    height: calc((550px - 2rem)/3);
+    font-size: 5rem;
+    font-weight: bold;
 }
