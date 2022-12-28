@@ -72,6 +72,7 @@ body {
     width: 550px;
     height: 550px;
     background-color: black;
+    border: 3px solid white;
 }
 
 .grid-item {
@@ -83,4 +84,17 @@ body {
     height: calc((550px - 2rem)/3);
     font-size: 5rem;
     font-weight: bold;
+}
+
+/* Status */
+.status {
+    display: flex;
+    text-align: center;
+    font-size: 15rem;
+    width: 1200px;
+    height: 500px;
+    margin: 0 auto;
+    
+    justify-content: center;
+    align-items: center;
 }

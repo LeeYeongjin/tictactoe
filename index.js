@@ -1,5 +1,9 @@
+
+
+
 const boxes = document.querySelectorAll(".grid-item");
 const players = document.querySelector(".players").children;
+const tictactoe = document.querySelector("#tictactoe");
 let puck_sentence = document.querySelector(".pucks").children;
 const pucks = [];
 
@@ -17,6 +21,18 @@ for (let i=0; i<3; i++){
 
 const left_diag = [];
 const right_diag = [];
+
+function createElement(type, attrs){
+    const elem = document.createElement(type);
+    
+    if (attrs){
+        for (let attr of attrs){
+            elem[attr] = attr.value;
+        }
+    }
+
+    return elem;
+}
 
 // left diagonal and right diagonal
 let [pos_i, pos_j] = [0, 2];
@@ -55,6 +71,11 @@ function checkLineWin(i, j, arr) {
     return count === 3;
 }
 
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 function checkWinGame(pos){
     const [i, j] = pos.split('-');
     const row = board[i];
@@ -69,6 +90,9 @@ function checkWinGame(pos){
 
     for (let line of lines) {
         if (checkLineWin(i, j, line)){
+            for (let elem of line) {
+                elem.style.backgroundColor = "red";
+            }
             return true;
         }
     }
@@ -86,18 +110,36 @@ function checkDraw(){
     return true;
 }
 
-boxes.forEach(box => box.addEventListener("click", box_event => {
+boxes.forEach(box => box.addEventListener("click", async box_event => {
     if (box_event.target.textContent) {
         console.warn("Cannot put it to this box");
     } 
     else{
         box_event.target.textContent = cur_puck.textContent;
-        if (!checkWinGame(box_event.target.value)){
-            switch_player();
+
+        if (checkWinGame(box_event.target.value)){
+            await sleep(2300);
+            tictactoe.remove();
+            const winElem = createElement("div");
+            winElem.classList.add("status");
+            const text = document.createTextNode(`Win: ${cur_player.querySelector("span").textContent}`);
+            winElem.appendChild(text);
+            const wrapper = document.querySelector(".wrapper");
+            wrapper.appendChild(winElem);
+            
         }else if (checkDraw()){
-            alert("Draw");
-        }else{
-            alert("Win!", cur_player.id);
+            await sleep(1000);
+            boxes.forEach(box => box.style.backgroundColor = "blue");
+            await sleep(2300);
+            tictactoe.remove();
+            const drawElem = createElement("div");
+            drawElem.classList.add("status");
+            const text = document.createTextNode(`Draw!`);
+            drawElem.appendChild(text);
+            const wrapper = document.querySelector(".wrapper");
+            wrapper.appendChild(drawElem);
+        }else {
+            switch_player();
         }
     }
 }));
