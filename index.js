@@ -1,6 +1,6 @@
 
 
-
+let game_end = false;
 const boxes = document.querySelectorAll(".grid-item");
 const players = document.querySelector(".players").children;
 const tictactoe = document.querySelector("#tictactoe");
@@ -110,37 +110,47 @@ function checkDraw(){
     return true;
 }
 
-boxes.forEach(box => box.addEventListener("click", async box_event => {
-    if (box_event.target.textContent) {
-        console.warn("Cannot put it to this box");
-    } 
-    else{
-        box_event.target.textContent = cur_puck.textContent;
+async function statusPrinter (textPrint) {
+    await sleep(2300);
+    tictactoe.remove();
+    const elem = createElement("div");
+    elem.classList.add("status");
+    const textPrint_elem = document.createTextNode(textPrint);
+    elem.appendChild(textPrint_elem);
+    const wrapper = document.querySelector(".wrapper");
+    wrapper.appendChild(elem);
+}
 
+function removeEvent (elem_event) {
+    elem_event.forEach(elem => elem.removeEventListener("click"));
+}
+
+boxes.forEach(box => box.addEventListener("click", async box_event => {
+    if (!game_end){
+        if (box_event.target.textContent) {
+            console.warn("Cannot put it to this box");
+        } else{
+            box_event.target.textContent = cur_puck.textContent;
+            box_event.target.classList.remove("grid-item-hover");
+        }
+
+        // Winning Status
         if (checkWinGame(box_event.target.value)){
-            await sleep(2300);
-            tictactoe.remove();
-            const winElem = createElement("div");
-            winElem.classList.add("status");
-            const text = document.createTextNode(`Win: ${cur_player.querySelector("span").textContent}`);
-            winElem.appendChild(text);
-            const wrapper = document.querySelector(".wrapper");
-            wrapper.appendChild(winElem);
+            game_end = true;
+            await statusPrinter(`Win: ${cur_player.querySelector("span").textContent}`);
             
+        // Draw Status
         }else if (checkDraw()){
+            game_end = true;
             await sleep(1000);
             boxes.forEach(box => box.style.backgroundColor = "blue");
-            await sleep(2300);
-            tictactoe.remove();
-            const drawElem = createElement("div");
-            drawElem.classList.add("status");
-            const text = document.createTextNode(`Draw!`);
-            drawElem.appendChild(text);
-            const wrapper = document.querySelector(".wrapper");
-            wrapper.appendChild(drawElem);
+            await statusPrinter("Draw!");
+
+        // Still in-game
         }else {
             switch_player();
         }
     }
+
 }));
 

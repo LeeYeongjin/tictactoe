@@ -71,8 +71,8 @@ body {
     grid-template-columns: repeat(3, 1fr);
     width: 550px;
     height: 550px;
-    background-color: black;
-    border: 3px solid white;
+    background-color: #38e4e5;
+    /* border: 3px solid white; */
 }
 
 .grid-item {
@@ -84,6 +84,10 @@ body {
     height: calc((550px - 2rem)/3);
     font-size: 5rem;
     font-weight: bold;
+}
+
+.grid-item-hover:hover {
+    box-shadow: 5px 4px 10px #0cabac;
 }
 
 /* Status */
