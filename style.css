@@ -21,6 +21,10 @@ body {
     flex-flow: column wrap;
 }
 
+.hidden {
+    display: none;
+}
+
 #tictactoe {
     display: flex;
     flex-flow: column wrap;
@@ -47,6 +51,43 @@ body {
 
 #title h2 {
     font-size: 2rem;
+}
+
+/* Register */
+#register {
+    height: 550px;
+    width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10rem;
+}
+
+#login {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding-bottom: 3rem;
+}
+
+#login .loginWrap {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+#textWrap {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 1rem;
+}
+
+#login button {
+    height: 70%;
+    margin-top: 1.3rem;
 }
 
 /* Info */

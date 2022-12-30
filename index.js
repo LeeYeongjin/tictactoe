@@ -5,7 +5,73 @@ const boxes = document.querySelectorAll(".grid-item");
 const players = document.querySelector(".players").children;
 const tictactoe = document.querySelector("#tictactoe");
 let puck_sentence = document.querySelector(".pucks").children;
+const wrapper = document.querySelector(".wrapper");
+const register = document.getElementById("register");
+const loginForm = document.getElementById("login");
 const pucks = [];
+
+tictactoe.remove();
+
+const playerNames = [];
+const playerPucks = [];
+
+// Login
+loginForm.addEventListener("submit", submit_event => {
+    submit_event.preventDefault();
+    const inputs = submit_event.target.querySelectorAll("input");
+
+    if (register.children.length > 1){
+        const del_warning = register.children[1];
+        register.removeChild(del_warning);
+    }
+    
+
+    if (!(inputs[0].value && inputs[1].value)) {
+        const warning = createElement("p");
+        const text = document.createTextNode("You Need to put both Name and Puck");
+        warning.appendChild(text);
+        register.appendChild(warning);
+
+    }else if (inputs[1].value.length > 1){
+        const warning = createElement("p");
+        const text = document.createTextNode("Puck needs to be 1 character");
+        warning.appendChild(text);
+        register.appendChild(warning);
+
+    }else if (playerNames.length === 1){
+        if (playerNames[0] === inputs[0].value || playerPucks[0] === inputs[1].value){
+            const warning = createElement("div");
+            const text = document.createTextNode(`You have same Name or Puck with`);
+            const text2 = document.createTextNode(`Player 1: ${playerNames[0]}, Puck: ${playerPucks[0]}`);
+            warning.appendChild(text);
+            warning.appendChild(createElement('br'));
+            warning.appendChild(text2);
+            register.appendChild(warning);
+        }else{
+            playerNames.push(inputs[0].value);
+            playerPucks.push(inputs[1].value);
+        }
+    }else {
+        playerNames.push(inputs[0].value);
+        playerPucks.push(inputs[1].value);
+    }
+
+    if (playerNames.length === 2) {
+        for (let i=0; i<playerNames.length; i++){
+            puck_sentence[i].querySelector("span").textContent = playerPucks[i];
+            players[i].querySelector("span").textContent = playerNames[i];
+        }
+        register.remove()
+        wrapper.appendChild(tictactoe);
+    }
+
+    inputs.forEach(input => input.value = "");
+});
+
+
+
+// wrapper.appendChild(tictactoe);
+
 
 const board = [];
 let pos = 0;
@@ -21,6 +87,7 @@ for (let i=0; i<3; i++){
 
 const left_diag = [];
 const right_diag = [];
+
 
 function createElement(type, attrs){
     const elem = document.createElement(type);
@@ -138,6 +205,8 @@ boxes.forEach(box => box.addEventListener("click", async box_event => {
         if (checkWinGame(box_event.target.value)){
             game_end = true;
             await statusPrinter(`Win: ${cur_player.querySelector("span").textContent}`);
+            const retry = createElement("button");
+            
             
         // Draw Status
         }else if (checkDraw()){
@@ -145,6 +214,7 @@ boxes.forEach(box => box.addEventListener("click", async box_event => {
             await sleep(1000);
             boxes.forEach(box => box.style.backgroundColor = "blue");
             await statusPrinter("Draw!");
+            const retry = createElement("button");
 
         // Still in-game
         }else {
