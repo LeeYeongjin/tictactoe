@@ -14,11 +14,15 @@
 
 body {
     font-family: var(--nunito);
+    background-image: url('./pics/white-background.jpg');
 }
 
 .wrapper {
     display: flex;
     flex-flow: column wrap;
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
 }
 
 .hidden {
@@ -55,14 +59,19 @@ body {
 
 /* Register */
 #register {
-    height: 550px;
-    width: 1100px;
+    height: 300px;
+    width: 300px;
     margin: 0 auto;
     display: flex;
     flex-flow: column wrap;
     align-items: center;
     justify-content: center;
-    padding-bottom: 10rem;
+    /* padding-bottom: 10rem; */
+
+    background-color: whitesmoke;
+    border-radius: 60px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
 }
 
 #login {
@@ -71,7 +80,8 @@ body {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    padding-bottom: 3rem;
+    /* padding-top: 6rem; */
+    padding-bottom: 2rem;
 }
 
 #login .loginWrap {
@@ -112,7 +122,8 @@ body {
     grid-template-columns: repeat(3, 1fr);
     width: 550px;
     height: 550px;
-    background-color: #38e4e5;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
     /* border: 3px solid white; */
 }
 
@@ -128,7 +139,7 @@ body {
 }
 
 .grid-item-hover:hover {
-    box-shadow: 5px 4px 10px #0cabac;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 /* Status */
